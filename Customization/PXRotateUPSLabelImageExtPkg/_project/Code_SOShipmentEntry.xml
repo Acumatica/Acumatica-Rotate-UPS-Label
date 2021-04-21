@@ -41,9 +41,12 @@ namespace PX.RotateUPSLabelImage.Ext
                                         Image labelImage = Image.FromStream(fileMemoryStream);
                                         if (labelImage != null)
                                         {
-                                            labelImage.RotateFlip(RotateFlipType.Rotate90FlipNone);
-                                            ImageConverter imgConverter = new ImageConverter();
-                                            fileData.Data = (byte[])imgConverter.ConvertTo(labelImage, typeof(byte[]));
+                                            if (labelImage.Width > labelImage.Height)
+                                            {
+                                                labelImage.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                                                ImageConverter imgConverter = new ImageConverter();
+                                                fileData.Data = (byte[])imgConverter.ConvertTo(labelImage, typeof(byte[]));
+                                            }
                                         }
                                     }
                                 }
